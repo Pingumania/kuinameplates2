@@ -958,7 +958,7 @@ function core:ConfigChanged(_,k,v)
         -- hide and re-show frames
         if f:IsShown() then
             local unit = f.unit
-            f.handler:OnRemoved() -- (this clears f.unit)
+            f.handler:OnUnitRemoved() -- (this clears f.unit)
             f.handler:OnUnitAdded(unit)
         end
     end
