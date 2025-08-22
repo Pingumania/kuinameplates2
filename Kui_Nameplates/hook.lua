@@ -16,7 +16,7 @@ local function UnitFrame_OnShow(self)
     end
 end
 local function FrameOnHide(self)
-    self.kui.handler:OnHide()
+    self.kui.handler:OnRemoved()
 end
 function addon.NamePlateDriverFrame_AcquireUnitFrame(_,frame)
     if not frame.UnitFrame:IsForbidden() and not frame.UnitFrame.kui then

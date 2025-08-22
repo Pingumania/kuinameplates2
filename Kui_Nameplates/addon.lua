@@ -122,13 +122,13 @@ function addon:NAME_PLATE_UNIT_REMOVED(unit)
     if addon.debug_units then
         self:print('unit |cffff8888removed|r: '..unit..' ('..f.state.name..')')
     end
-    f.handler:OnHide()
+    f.handler:OnRemoved()
 end
 function addon:PLAYER_LEAVING_WORLD()
     if #framelist > 0 then
         for _,f in self:Frames() do
             if f:IsShown() then
-                f.handler:OnHide()
+                f.handler:OnRemoved()
             end
         end
     end

@@ -2200,8 +2200,7 @@ do
             f.UnitFrame:Show()
         end
 
-        f:Hide()
-        addon:DispatchMessage('Hide', f)
+        f.handler:OnHide()
         HideCastBar(f,nil,true)
     end
     local function WidgetOnlyDisable(f)
