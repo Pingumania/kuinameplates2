@@ -82,6 +82,8 @@ function core:Show(f)
         -- show/hide target arrows
         f:UpdateTargetArrows()
     end
+
+    self:WidgetOnlyUpdate(f)
 end
 function core:Hide(f)
     self:NameOnlyUpdate(f,true)
@@ -89,7 +91,6 @@ function core:Hide(f)
 end
 function core:HealthUpdate(f)
     f:UpdateHealthText()
-
     self:NameOnlyHealthUpdate(f)
 end
 function core:HealthColourChange(f)
