@@ -154,6 +154,9 @@ function core:Combat(f)
     -- enable/disable nameonly if enabled on enemies
     self:NameOnlyCombatUpdate(f)
 end
+function core:FactionUpdate(f)
+    self:WidgetOnlyUpdate(f)
+end
 function core:QuestUpdate(f)
     f:UpdateQuestIcon()
 end
@@ -370,6 +373,7 @@ function core:Initialise()
     self:RegisterMessage('OnEnter')
     self:RegisterMessage('OnLeave')
     self:RegisterMessage('Combat')
+    self:RegisterMessage('FactionUpdate')
     self:RegisterMessage('QuestUpdate')
 
     -- register events

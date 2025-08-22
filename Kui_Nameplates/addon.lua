@@ -104,10 +104,6 @@ function addon:NAME_PLATE_UNIT_ADDED(unit)
         return
     end
 
-    if UnitNameplateShowsWidgetsOnly and UnitNameplateShowsWidgetsOnly(unit) then
-        return
-    end
-
     if f.UnitFrame then
         f.UnitFrame:Hide()
 

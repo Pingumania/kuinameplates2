@@ -2192,6 +2192,29 @@ do
             plugin_fading:UpdateFrame(f)
         end
     end
+    local function WidgetOnlyEnable(f)
+        if not f:IsShown() then return end
+        if f.IN_NAMEONLY then return end
+
+        if f.UnitFrame then
+            f.UnitFrame:Show()
+        end
+
+        f:Hide()
+        addon:DispatchMessage('Hide', f)
+        HideCastBar(f,nil,true)
+    end
+    local function WidgetOnlyDisable(f)
+        if f:IsShown() then return end
+        if f.IN_NAMEONLY then return end
+
+        if f.UnitFrame then
+            f.UnitFrame:Hide()
+        end
+
+        f.handler:OnShow()
+        ShowCastBar(f)
+    end
     function core:NameOnlyUpdateNameText(f)
         if not f.IN_NAMEONLY then return end
 
@@ -2315,6 +2338,15 @@ do
             NameOnlyEnable(f)
         else
             NameOnlyDisable(f)
+        end
+    end
+    function core:WidgetOnlyUpdate(f)
+        if UnitNameplateShowsWidgetsOnly then
+            if UnitNameplateShowsWidgetsOnly(f.unit) then
+                WidgetOnlyEnable(f)
+            else
+                WidgetOnlyDisable(f)
+            end
         end
     end
 end
