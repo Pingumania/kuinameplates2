@@ -74,22 +74,16 @@ function addon.Nameplate.OnShow(f)
     f:Show()
     addon:DispatchMessage('Show', f)
 end
-function addon.Nameplate.OnUnitRemoved(f)
+function addon.Nameplate.OnHide(f)
     f = f.parent
+    if not f:IsShown() then return end
+
+    f:Hide()
+    addon:DispatchMessage('Hide', f)
+
     f.unit = nil
     f.guid = nil
     wipe(f.state)
-
-    if not f:IsShown() then return end
-
-    f:Hide()
-    addon:DispatchMessage('Hide', f)
-end
-function addon.Nameplate.OnHide(f)
-    if not f:IsShown() then return end
-
-    f:Hide()
-    addon:DispatchMessage('Hide', f)
 end
 function addon.Nameplate.Create(f)
     f = f.parent

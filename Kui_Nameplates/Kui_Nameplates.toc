@@ -49,3 +49,4 @@ plugins/fading.lua
 plugins/guildtext.lua
 plugins/personal-anchor.lua
 plugins/tankmode.lua
+plugins/widget.lua

@@ -82,8 +82,6 @@ function core:Show(f)
         -- show/hide target arrows
         f:UpdateTargetArrows()
     end
-
-    self:WidgetOnlyUpdate(f)
 end
 function core:Hide(f)
     self:NameOnlyUpdate(f,true)
@@ -91,6 +89,7 @@ function core:Hide(f)
 end
 function core:HealthUpdate(f)
     f:UpdateHealthText()
+
     self:NameOnlyHealthUpdate(f)
 end
 function core:HealthColourChange(f)
@@ -126,6 +125,11 @@ function core:TargetUpdate(f)
     f:UpdateLevelText()
     self:NameOnlyUpdateFunctions(f)
 end
+function core:WidgetUpdate(f)
+    self:NameOnlyUpdate(f)
+    self:ShowNameUpdate(f)
+    self:NameOnlyUpdateFunctions(f)
+end
 function core:GainedTarget(f)
     f.state.target = true
     self:TargetUpdate(f)
@@ -154,9 +158,6 @@ end
 function core:Combat(f)
     -- enable/disable nameonly if enabled on enemies
     self:NameOnlyCombatUpdate(f)
-end
-function core:FactionUpdate(f)
-    self:WidgetOnlyUpdate(f)
 end
 function core:QuestUpdate(f)
     f:UpdateQuestIcon()
@@ -370,11 +371,11 @@ function core:Initialise()
     self:RegisterMessage('CastBarHide')
     self:RegisterMessage('GainedTarget')
     self:RegisterMessage('LostTarget')
+    self:RegisterMessage('WidgetUpdate')
     self:RegisterMessage('ClassificationChanged')
     self:RegisterMessage('OnEnter')
     self:RegisterMessage('OnLeave')
     self:RegisterMessage('Combat')
-    self:RegisterMessage('FactionUpdate')
     self:RegisterMessage('QuestUpdate')
 
     -- register events

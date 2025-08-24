@@ -666,7 +666,9 @@ do
     end
 
     local function UpdateNameText(f)
-        if f.IN_NAMEONLY then
+        if f.state.widgetOnly and f.state.hasAnyWidgetsShowing then
+            f.NameText:Hide()
+        elseif f.IN_NAMEONLY then
             if TITLE_TEXT_PLAYERS then
                 -- override name with title
                 f.state.name = UnitPVPName(f.unit) or UnitName(f.unit)
@@ -2175,9 +2177,11 @@ do
 
         f.GuildText:SetTextColor(1,1,1,1)
 
-        f.bg:Show()
-        f.HealthBar:Show()
-        f.HealthBar.fill:Show()
+        if not f.state.widgetOnly then
+            f.bg:Show()
+            f.HealthBar:Show()
+            f.HealthBar.fill:Show()
+        end
 
         -- nil fontobject overrides
         f.NameText.fontobject_shadow = nil
@@ -2191,28 +2195,6 @@ do
         if FADE_AVOID_NAMEONLY then
             plugin_fading:UpdateFrame(f)
         end
-    end
-    local function WidgetOnlyEnable(f)
-        if not f:IsShown() then return end
-        if f.IN_NAMEONLY then return end
-
-        if f.UnitFrame then
-            f.UnitFrame:Show()
-        end
-
-        f.handler:OnHide()
-        HideCastBar(f,nil,true)
-    end
-    local function WidgetOnlyDisable(f)
-        if f:IsShown() then return end
-        if f.IN_NAMEONLY then return end
-
-        if f.UnitFrame then
-            f.UnitFrame:Hide()
-        end
-
-        f.handler:OnShow()
-        ShowCastBar(f)
     end
     function core:NameOnlyUpdateNameText(f)
         if not f.IN_NAMEONLY then return end
@@ -2252,6 +2234,9 @@ do
     end
 
     local function NameOnlyFilterFrame(f)
+        if f.state.widgetOnly and not f.state.hasAnyWidgetsShowing then
+            return true
+        end
         if not NAMEONLY_ENABLED then return end
         -- disable on personal frame
         if f.state.personal then return end
@@ -2337,15 +2322,6 @@ do
             NameOnlyEnable(f)
         else
             NameOnlyDisable(f)
-        end
-    end
-    function core:WidgetOnlyUpdate(f)
-        if UnitNameplateShowsWidgetsOnly then
-            if UnitNameplateShowsWidgetsOnly(f.unit) then
-                WidgetOnlyEnable(f)
-            else
-                WidgetOnlyDisable(f)
-            end
         end
     end
 end
